@@ -1,0 +1,10 @@
+name: env_checkv
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python=3.9
+  - checkv=1.0.1
+  - diamond=2.2.0
+  - hmmer=3.3

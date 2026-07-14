@@ -1,0 +1,46 @@
+# =============================================================================
+# Therapeutic Phage Candidate Selection Pipeline — Configuration
+# Astraphage Innovations
+#
+# Usage:
+#   snakemake --cores 8 --config samples="T4" run_id="2026-06-26_T4_test"
+#   snakemake --cores 8 --config samples="T4,T7,EcoPhCCP1" run_id="2026-06-26_novel_batch"
+#
+# samples : comma-separated list of sample names (no .fasta extension)
+#           each must have a corresponding {sample}.fasta in raw_input/
+# run_id  : label for this run — used to namespace the reports directory
+#           auto-defaults to today's date if not provided (see Snakefile)
+# =============================================================================
+
+# ── directory layout ──────────────────────────────────────────────────────────
+raw_input : "raw_input"          # input FASTAs live here
+results   : "results"            # raw tool outputs: results/{sample}/{tool}/
+reports   : "reports"            # human-facing outputs: reports/{run_id}/{sample}/
+scripts   : "scripts"
+databases : "databases"
+tools     : "tools"
+
+# ── compute ───────────────────────────────────────────────────────────────────
+threads: 8
+
+# ── AcrDB scoring thresholds (blastp evalue) ─────────────────────────────────
+acrdb_high_evalue   : 1.0e-5    # HIGH confidence anti-CRISPR — penalise -15 pts
+acrdb_medium_evalue : 1.0e-3    # MEDIUM confidence            — penalise -7 pts
+                                 # above medium_evalue = WEAK   — no penalty
+
+# ── BACPHLIP lifestyle threshold ─────────────────────────────────────────────
+bacphlip_temperate_threshold : 0.6   # >= this → hard disqualifier
+
+# ── scoring weights (must sum to 100) ────────────────────────────────────────
+score_quality   : 20
+score_lifestyle : 30
+score_safety    : 30
+score_lysis     : 10
+score_host      : 10
+
+# ── pass/review thresholds ───────────────────────────────────────────────────
+score_pass   : 80    # >= 80 → PASS
+score_review : 50    # >= 50 → REVIEW, else FAIL
+
+# ── database paths ────────────────────────────────────────────────────────────
+acrdb_db : "databases/acrdb_db/122_KnownAcr/Known_Acr.faa"

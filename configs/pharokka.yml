@@ -1,0 +1,8 @@
+name: env_pharokka
+channels:
+  - bioconda
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pharokka=1.9.0

@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Snakemake
+.snakemake/
+
+# Nextflow
+.nextflow/
+work/
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# Logs
+*.log
+
+# Generated outputs
+results/
+reports/
+
+# Large databases
+databases/
+
+# Input data
+raw_input/
+held_fastas/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Conda
+.conda/
+
+# Temporary
+*.tmp
+*.bak
