@@ -5,6 +5,9 @@ INPUT=${1:?Usage: scripts/rgi/run_rgi.sh <input.fasta> <prefix> [contig|protein]
 PREFIX=${2:?Usage: scripts/rgi/run_rgi.sh <input.fasta> <prefix> [contig|protein] [threads] [outdir]}
 TYPE=${3:-contig}
 THREADS=${4:-2}
+if [[ "$THREADS" -gt 2 ]]; then
+  THREADS=2
+fi
 
 ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)
 # 5th arg overrides default -- Snakemake passes results/{sample}/rgi/
